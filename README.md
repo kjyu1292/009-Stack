@@ -6,6 +6,12 @@ Built as a hands-on learning project to understand real-world data infrastructur
 
 ---
 
+## Demo
+
+*https://drive.proton.me/urls/51VV1XSVZ0#GFWzgnGEZmPU*
+
+---
+
 ## Architecture
 
 ```
@@ -16,12 +22,12 @@ Built as a hands-on learning project to understand real-world data infrastructur
 │   │ Airflow  │ ──────────▶ │  Spark   │                   │
 │   │(schedule)│             │(ETL job) │                   │
 │   └──────────┘             └────┬─────┘                   │
-│                                  │ read + write           │
-│                                  ▼                        │
-│                            ┌───────────┐   ┌───────────┐  │
-│                            │ClickHouse │◀──│ Superset  │  │
-│                            │(warehouse)│   │(dashboard)│  │
-│                            └───────────┘   └───────────┘  │
+│                                 │ read + write            │
+│                                 ▼                         │
+│                            ┌───────────┐    ┌───────────┐ │
+│                            │ClickHouse │◀── │ Superset  │ │
+│                            │(warehouse)│    │(dashboard)│ │
+│                            └───────────┘    └───────────┘ │
 │                                                           │
 │   Supporting infra: custom Docker images (dependency      │
 │   pinning), Kubernetes RBAC, PersistentVolumeClaims       │
@@ -236,8 +242,4 @@ kind delete cluster --name temp_ns
 kind create cluster --name temp_ns
 # then continue from step 2 above
 ```
-
-## Demo
-
-*(https://drive.proton.me/urls/51VV1XSVZ0#GFWzgnGEZmPU)*
 
