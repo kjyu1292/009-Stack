@@ -1,0 +1,23 @@
+executor: KubernetesExecutor
+
+config:
+  kubernetes_executor:
+    delete_worker_pods: 'False'
+
+postgresql:
+  enabled: true
+
+images:
+  airflow:
+    repository: upbase/airflow
+    tag: local
+    pullPolicy: Never
+
+webserver:
+  service:
+    type: NodePort
+    ports:
+      - name: airflow-ui
+        port: 8080
+        targetPort: 8080
+        nodePort: 30080
