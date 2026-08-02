@@ -115,7 +115,7 @@ upbase-data-platform/
 ## Setup — full clean build
 
 ### Prerequisites
-Docker, `kubectl`, `kind`, `helm`, all installed on the host/VM.
+`Docker`, `kubectl`, `kind`, `helm`, all installed on the host/VM.
 
 ### 1. Create the cluster
 ```bash
