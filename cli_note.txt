@@ -1,1 +1,0 @@
-kubectl exec -it $(kubectl get pods -o name | grep clickhouse | cut -d/ -f2) -- clickhouse-client --password upbase123 --query "SELECT count() FROM upbase.events"
