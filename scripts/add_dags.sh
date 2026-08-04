@@ -17,9 +17,9 @@ SCHEDULER_POD=$(kubectl get pods -n "$NAMESPACE" -o name | grep airflow-schedule
 DAG_PROCESSOR_POD=$(kubectl get pods -n "$NAMESPACE" -o name | grep airflow-dag-processor | cut -d/ -f2)
 
 if [ -z "$SCHEDULER_POD" ] || [ -z "$DAG_PROCESSOR_POD" ]; then
-    echo "Could not find scheduler or dag-processor pod. Is Airflow running?"
-    kubectl get pods -n "$NAMESPACE"
-    exit 1
+	echo "Could not find scheduler or dag-processor pod. Is Airflow running?"
+	kubectl get pods -n "$NAMESPACE"
+	exit 1
 fi
 
 echo "Scheduler pod:     $SCHEDULER_POD"
@@ -28,26 +28,26 @@ echo ""
 
 # Decide which files to copy: either one named file, or everything in the folder
 if [ -n "$1" ]; then
-    echo "Clearing old DAG files from both pods..."
-    kubectl exec "$SCHEDULER_POD" -n "$NAMESPACE" -- sh -c "rm -rf /opt/airflow/dags/*.py /opt/airflow/dags/__pycache__"
-    kubectl exec "$DAG_PROCESSOR_POD" -n "$NAMESPACE" -- sh -c "rm -rf /opt/airflow/dags/*.py /opt/airflow/dags/__pycache__"
-    echo ""
+	echo "Clearing old DAG files from both pods..."
+	kubectl exec "$SCHEDULER_POD" -n "$NAMESPACE" -- sh -c "rm -rf /opt/airflow/dags/*.py /opt/airflow/dags/__pycache__"
+	kubectl exec "$DAG_PROCESSOR_POD" -n "$NAMESPACE" -- sh -c "rm -rf /opt/airflow/dags/*.py /opt/airflow/dags/__pycache__"
+	echo ""
 else
-    FILES=$(ls "$DAGS_DIR"/*.py)
+	FILES=$(ls "$DAGS_DIR"/*.py)
 fi
 
 for f in $FILES; do
-    filename=$(basename "$f")
-    filepath="$DAGS_DIR/$filename"
-
-    if [ ! -f "$filepath" ]; then
-        echo "Skipping $filename — not found in $DAGS_DIR"
-        continue
-    fi
-
-    echo "Copying $filename ..."
-    kubectl cp "$filepath" "$NAMESPACE/$SCHEDULER_POD:/opt/airflow/dags/$filename"
-    kubectl cp "$filepath" "$NAMESPACE/$DAG_PROCESSOR_POD:/opt/airflow/dags/$filename"
+	filename=$(basename "$f")
+	filepath="$DAGS_DIR/$filename"
+	
+	if [ ! -f "$filepath" ]; then
+		echo "Skipping $filename — not found in $DAGS_DIR"
+		continue
+	fi
+	
+	echo "Copying $filename ..."
+	kubectl cp "$filepath" "$NAMESPACE/$SCHEDULER_POD:/opt/airflow/dags/$filename"
+	kubectl cp "$filepath" "$NAMESPACE/$DAG_PROCESSOR_POD:/opt/airflow/dags/$filename"
 done
 
 echo ""

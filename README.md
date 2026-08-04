@@ -139,7 +139,11 @@ CREATE DATABASE upbase;
 CREATE TABLE upbase.events (
     event_time DateTime,
     user_id UInt32,
-    event_type String
+    event_type LowCardinality(String),
+    device LowCardinality(String),
+    country LowCardinality(String),
+    referrer LowCardinality(String),
+    revenue Float64
 ) ENGINE = MergeTree()
 ORDER BY event_time;
 
@@ -148,13 +152,6 @@ CREATE TABLE upbase.event_counts (
     count UInt64
 ) ENGINE = MergeTree()
 ORDER BY event_type;
-
-INSERT INTO events (event_time, user_id, event_type)
-SELECT
-    now() - INTERVAL rand() % 30 DAY,
-    (rand() % 500) + 1,
-    ['login', 'logout', 'purchase', 'signup', 'click', 'view_page'][(rand() % 6) + 1]
-FROM numbers(2000);
 ```
 
 ### 3. Build and load the Superset image, create its ConfigMap
