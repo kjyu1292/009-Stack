@@ -8,7 +8,7 @@ Built as a hands-on learning project to understand real-world data infrastructur
 
 ## Demo
 
-*https://drive.proton.me/urls/51VV1XSVZ0#GFWzgnGEZmPU*
+*https://drive.proton.me/urls/HTJGGKATRR#a9oBYLL0tQCH*
 
 ---
 
