@@ -230,6 +230,14 @@ kubectl exec -it $(kubectl get pods -o name | grep airflow-scheduler | cut -d/ -
 ```
 Confirm each completes and ClickHouse row counts change accordingly, with zero new pod restarts anywhere in the cluster.
 
+### 10. Build extensions for Postgres (Graph and Vector)
+```bash
+docker build -t upbase/db-extensions:local -f docker/db-extensions.Dockerfile .
+kind load docker-image upbase/db-extensions:local --name temp_ns
+kubectl apply -f k8s/db-extensions.yaml
+```
+Using Apache AGE for GraphDB and pgvector for VectorDB.
+
 ---
 
 ## Quick full-reset one-liner
