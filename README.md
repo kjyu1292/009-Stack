@@ -1,4 +1,4 @@
-# UpBase Data Platform
+# Self-hosted Data Platform
 
 A self-hosted, Kubernetes-native data platform built from scratch: **ClickHouse** (data warehouse), **Apache Airflow** (orchestration), **Apache Spark** (ETL), and **Apache Superset** (BI/visualization) — all containerized and deployed on Kubernetes.
 
@@ -85,7 +85,7 @@ An overly broad `DROP SCHEMA public CASCADE` reset on Airflow's Postgres left a 
 ## Repository structure
 
 ```
-upbase-data-platform/
+009-stack/
 ├── k8s/                         # Kubernetes manifests (Deployments, Services, PVCs, RBAC)
 │   ├── clickhouse.yaml
 │   ├── superset.yaml
